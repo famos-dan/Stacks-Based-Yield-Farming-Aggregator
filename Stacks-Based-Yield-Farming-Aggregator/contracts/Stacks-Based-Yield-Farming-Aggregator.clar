@@ -400,3 +400,52 @@
   reputation-score: uint,
   verified: bool
 })
+
+(define-map social-follows {follower: principal, following: principal} bool)
+(define-map strategy-copies {copier: principal, original-strategy: uint} uint) ;; copied strategy id
+
+;; ==== NEW FEATURE: Risk Assessment Oracle ====
+(define-map risk-assessments principal {
+  overall-risk: uint, ;; 1-100
+  smart-contract-risk: uint,
+  liquidity-risk: uint,
+  market-risk: uint,
+  last-assessment: uint,
+  assessor: principal,
+  confidence-score: uint
+})
+
+;; ==== NEW FEATURE: Automated Portfolio Rebalancing ====
+(define-map auto-rebalance-configs principal {
+  enabled: bool,
+  target-allocations: (list 5 {strategy-id: uint, percentage: uint}),
+  rebalance-threshold: uint, ;; Percentage deviation to trigger
+  max-rebalance-frequency: uint, ;; Minimum blocks between rebalances
+  last-rebalance-block: uint,
+  rebalance-cost: uint
+})
+
+;; ==== NEW FEATURE: Milestone Achievement System ====
+(define-map user-milestones principal {
+  first-deposit: bool,
+  deposit-10k: bool,
+  deposit-100k: bool,
+  deposit-1m: bool,
+  hold-30-days: bool,
+  hold-1-year: bool,
+  refer-5-users: bool,
+  total-milestones: uint,
+  last-milestone-block: uint
+})
+
+;; ==== NEW FEATURE: Liquidity Mining Epochs ====
+(define-map mining-epochs uint {
+  start-block: uint,
+  end-block: uint,
+  total-rewards: uint,
+  reward-token: principal,
+  participating-strategies: (list 10 uint),
+  rewards-per-block: uint,
+  total-participants: uint,
+  distributed-rewards: uint
+})
